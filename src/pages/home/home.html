@@ -17,14 +17,35 @@
   <ion-list>
 
     <ion-item>
-      <ion-input type="text" placeholder="Text to search"></ion-input>
+      <ion-input id="inputSearchBox" type="text" placeholder="Text to search"></ion-input>
     </ion-item>
+
+    <ion-searchbar
+      [(ngModel)]="myInput"
+      [showCancelButton]="shouldShowCancel"
+      (ionInput)="onSearchInput($event)"
+      (ionCancel)="onCancel($event)">
+    </ion-searchbar>
   
   </ion-list>
 
-  <button (click)="onDoAction()" ion-button>Do action</button>
+  <button (click)="onDoActionButton()" ion-button>Do action</button>
 
 
-  <button (click)="onDoQuery()" ion-button>Search WikiData</button>
+  <button (click)="onSearchWikidataButton()" ion-button>Search WikiData</button>
+
+  <button id="myButton" (click)="changeTextColor()">Click Me!</button>
+
+  <ion-card>
+
+    <ion-card-header>
+      Card Header
+    </ion-card-header>
+  
+    <ion-card-content>
+      <!-- Add card content here! -->
+    </ion-card-content>
+  
+  </ion-card>
 
 </ion-content>
