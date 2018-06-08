@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import { empty } from 'rxjs/Observer';
-import * as $ from 'jquery';
-import { asPureExpressionData } from '@angular/core/src/view';
 declare var require: any;
 var wdk = require("wikidata-sdk");
 var request = require('request');
-var inputSearchValue = 'empty';
+import wiki from 'wikijs';
+
 
 @Component({
   selector: 'page-home',
@@ -17,30 +15,41 @@ export class HomePage {
 
   
   constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
+
   }
   
   onDoActionButton () {
-    var inputValue = "hello"
+    var inputValue = "nikola tesla"
     //inputValue = (<HTMLInputElement>document.getElementById('inputSearchBox')).value;
     console.log(inputValue);
-    /*let alert = this.alertCtrl.create({
-      title: 'Mensaje de alerta!',
-      subTitle: inputValue,
-      buttons: ['OK']
-    });
-    alert.present();
-    */
+    var url: any;
+    url = wdk.searchEntities({
+      search: inputValue,
+      language: 'ca',
+      limit: '1',
+      format: 'json'
+    })
+
+    //wikijs
+    
+      console.log("wikidata info: " + url);
+ 
+      wiki({
+        apiUrl: 'https://awoiaf.westeros.org/api.php',
+        origin: 'http://localhost:8100'
+    }).search('Winterfell');
+      
 
   }
 
  
 
   onSearchInput (ev:any) {
-    
+    /*
     // set val to the value of the searchbar
     inputSearchValue = ev.target.value;
     console.log(inputSearchValue);
-
+*/
   }
 
   changeColor(){
@@ -50,9 +59,9 @@ export class HomePage {
   onSearchWikidataButton ()   {
     //Get entities from a string (If the values aren't available in the 
     //desired language, it will fallback to the English value if available)
-var url="hello";
+    var url: any;
      url = wdk.searchEntities({
-      search: inputSearchValue,
+      search: "hello",
       language: 'ca',
       limit: '1',
       format: 'json'
